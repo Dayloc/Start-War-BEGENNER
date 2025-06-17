@@ -10,6 +10,8 @@ import { Home } from "./pages/Home";
 
 import Characters  from "./pages/Characters";
 import SpecificCharacters from "./pages/SpecificCharacters";
+import SpecificLocation from "./pages/SpecificLocation";
+import Favorites from "./components/Favorites";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -27,6 +29,8 @@ export const router = createBrowserRouter(
        
           <Route path="/characters" element={<Characters />} />
           <Route path="/specificCharacters/:id" element={<SpecificCharacters />} />
+          <Route path="/specificLocation/:id" element={<SpecificLocation />} />
+           <Route path="/favorites" element={<Favorites />} />
       </Route>
     )
 );

@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import {SpecificPeople } from '../services/fetchs';
+import { SpecificLocation as fetchSpecificLocation } from '../services/fetchs';
 
-function SpecificCharacters() {
+function SpecificLocation() {
     const { store, dispatch } = useGlobalReducer();
     const { id } = useParams();
-    const { specificCharacter } = store;
+    const { specificLocation } = store;
 
     useEffect(() => {
-        SpecificPeople(id, dispatch);
+       fetchSpecificLocation(id, dispatch);
     }, [id, dispatch]);
 
-    if (!specificCharacter) {
+    if (!specificLocation) {
         return <div className="container mt-4">Loading character details...</div>;
     }
 
@@ -23,12 +23,12 @@ function SpecificCharacters() {
                 <div className="card-body">
                     <img 
                         className='detalle img-fluid rounded' 
-                        src={specificCharacter.image} 
-                        alt={specificCharacter.name || 'Character image'} 
+                        src={specificLocation.image} 
+                        alt={specificLocation.name || 'Character image'} 
                     />
-                    <h2 className="mt-3">{specificCharacter.name}</h2>
+                    <h2 className="mt-3">{specificLocation.name}</h2>
                     <div className="character-details mt-3">
-                        <p><strong>Description:</strong> {specificCharacter.description}</p>
+                        <p><strong>Description:</strong> {specificLocation.description}</p>
                        
                     </div>
                 </div>
@@ -37,4 +37,4 @@ function SpecificCharacters() {
     );
 }
 
-export default SpecificCharacters;
+export default SpecificLocation;

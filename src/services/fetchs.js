@@ -16,7 +16,7 @@ export const GetPeople = async (dispatch) => {
     }
 }
 
-export const EspecificPeople = async (id,dispatch) => {
+export const SpecificPeople = async (id,dispatch) => {
     try {
         const response = await fetch(`${url}characters/${id}/`);
         if (!response.ok) {
@@ -42,6 +42,22 @@ export const GetAllLocations = async (dispatch) => {
         return data;
     } catch (error) {
         console.error("Error fetching planets:", error);
+        throw error;
+    }
+}
+
+
+export const SpecificLocation = async (id,dispatch) => {
+    try {
+        const response = await fetch(`${url}locations/${id}/`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        dispatch({type: 'GET_SPECIFIC_LOCATION', payload: data});
+        return data;
+    } catch (error) {
+        console.error("Error fetching specific person:", error);
         throw error;
     }
 }
