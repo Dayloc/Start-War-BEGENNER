@@ -1,8 +1,10 @@
 
+import Prueba from "../components/Prueba.jsx";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import Characters from "./Characters.jsx";
 import Location from "./Locations.jsx";
 import Specie from "./Specie.jsx";
+
 
 export const Home = () => {
   const {store, dispatch} =useGlobalReducer()
@@ -14,6 +16,8 @@ export const Home = () => {
 			<Characters />
 			<Location />
 			<Specie/>
+
+			<Prueba/>
 			
 		</div>
 	);
