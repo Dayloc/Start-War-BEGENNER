@@ -11,15 +11,12 @@ function Locations() {
     GetAllLocations(dispatch);
   }, [dispatch]);
 
-  // ✅ Función genérica para toggle
-  const toggleFavorite = (type, data) => {
-    const isFavorite = favoritos.some(
-      fav => fav.type === type && fav.data._id === data._id
-    );
-    if (isFavorite) {
-      dispatch({ type: "REMOVE_FAVORITE", payload: { type, data } });
+  // Función para agregar o quitar de favoritos por nombre
+  const toggleFavorite = (locationName) => {
+    if (favoritos.includes(locationName)) {
+      dispatch({ type: 'REMOVE_FAVORITE', payload: locationName });
     } else {
-      dispatch({ type: "ADD_FAVORITE", payload: { type, data } });
+      dispatch({ type: 'ADD_FAVORITE', payload: locationName });
     }
   };
 
@@ -29,9 +26,7 @@ function Locations() {
       {locations.length > 0 ? (
         <div className="row g-4">
           {locations.map((location) => {
-            const isFavorite = favoritos.some(
-              fav => fav.type === "location" && fav.data._id === location._id
-            );
+            const isFavorite = favoritos.includes(location.name);
 
             return (
               <div className="col-lg-4 col-md-6" key={location._id}>
@@ -66,7 +61,7 @@ function Locations() {
                     <button
                       type="button"
                       className={`btn ${isFavorite ? "btn-danger" : "btn-outline-danger"} w-100`}
-                      onClick={() => toggleFavorite("location", location)}
+                      onClick={() => toggleFavorite(location.name)}
                     >
                       {isFavorite ? "❤️ Remove from Favorites" : "🤍 Add to Favorites"}
                     </button>

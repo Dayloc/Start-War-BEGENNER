@@ -11,15 +11,12 @@ function Characters() {
     GetPeople(dispatch);
   }, [dispatch]);
 
-  // ✅ Función genérica para toggle
-  const toggleFavorite = (type, data) => {
-    const isFavorite = favoritos.some(
-      fav => fav.type === type && fav.data._id === data._id
-    );
-    if (isFavorite) {
-      dispatch({ type: "REMOVE_FAVORITE", payload: { type, data } });
+  // ✅ Toggle simple con name
+  const toggleFavorite = (characterName) => {
+    if (favoritos.includes(characterName)) {
+      dispatch({ type: "REMOVE_FAVORITE", payload: characterName });
     } else {
-      dispatch({ type: "ADD_FAVORITE", payload: { type, data } });
+      dispatch({ type: "ADD_FAVORITE", payload: characterName });
     }
   };
 
@@ -29,9 +26,7 @@ function Characters() {
       {characters.length > 0 ? (
         <div className="row g-4">
           {characters.map((character) => {
-            const isFavorite = favoritos.some(
-              fav => fav.type === "character" && fav.data._id === character._id
-            );
+            const isFavorite = favoritos.includes(character.name);
 
             return (
               <div className="col-lg-4 col-md-6" key={character._id}>
@@ -66,7 +61,7 @@ function Characters() {
                     <button
                       type="button"
                       className={`btn ${isFavorite ? "btn-danger" : "btn-outline-danger"} w-100`}
-                      onClick={() => toggleFavorite("character", character)}
+                      onClick={() => toggleFavorite(character.name)}
                     >
                       {isFavorite ? "❤️ Remove from Favorites" : "🤍 Add to Favorites"}
                     </button>

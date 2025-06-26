@@ -6,7 +6,7 @@ export const initialStore = () => ({
   specificLocation: null,
   species: [],
   specificSpecie: null,
-  favoritos: [] // única lista para todo, con type + data
+  favoritos: [] 
 });
 
 export default function storeReducer(store, action = {}) {
@@ -29,28 +29,22 @@ export default function storeReducer(store, action = {}) {
     case 'GET_SPECIFIC_SPECIE':
       return { ...store, specificSpecie: action.payload };
 
-    case 'ADD_FAVORITE': {
-      const { type, data } = action.payload;
-      const exists = store.favoritos.some(
-        fav => fav.type === type && fav.data._id === data._id
-      );
-      if (exists) return store;
-      return {
-        ...store,
-        favoritos: [...store.favoritos, { type, data }]
-      };
-    }
-
-    case 'REMOVE_FAVORITE': {
-      const { type, data } = action.payload;
-      return {
-        ...store,
-        favoritos: store.favoritos.filter(
-          fav => !(fav.type === type && fav.data._id === data._id)
-        )
-      };
-    }
-
+      case 'ADD_FAVORITE': {
+        const name = action.payload;
+        if (store.favoritos.includes(name)) return store; // ya está
+        return {
+          ...store,
+          favoritos: [...store.favoritos, name]
+        };
+      }
+  
+      case 'REMOVE_FAVORITE': {
+        const name = action.payload;
+        return {
+          ...store,
+          favoritos: store.favoritos.filter(fav => fav !== name)
+        };
+      }
     default:
       throw new Error('Unknown action.');
   }

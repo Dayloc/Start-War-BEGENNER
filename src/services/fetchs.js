@@ -61,3 +61,33 @@ export const SpecificLocation = async (id,dispatch) => {
         throw error;
     }
 }
+export const GetAllSpecies = async (dispatch) => {
+    try {
+      const response = await fetch(`${url}species`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      dispatch({ type: 'GET_SPECIES', payload: data.data });
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching species:", error);
+      throw error;
+    }
+  };
+  
+  export const SpecificSpecies = async (id, dispatch) => {
+    try {
+      const response = await fetch(`${url}species/${id}/`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      dispatch({ type: 'GET_SPECIFIC_SPECIE', payload: data });
+      return data;
+    } catch (error) {
+      console.error("Error fetching specific species:", error);
+      throw error;
+    }
+  };
+  
